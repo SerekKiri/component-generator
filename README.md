@@ -4,6 +4,8 @@ A modern Remix app for generating, previewing, and sharing React components, pow
 
 ---
 
+Available for testing: [component-generator-one.vercel.app](https://component-generator-one.vercel.app/)
+
 ## Short Description
 
 Hey! I tried to use remix instead of Next, it didn't go so well but it is what it is.
@@ -60,6 +62,8 @@ SESSION_SECRET=
    ```bash
    npm install
    ```
+
+(you might have to use `--legacy-peer-deps` flag since after generating the project with `create-remix` it seems like there is some conflicts within the packages and I decided to focus on the app not solving it)
 
 2. Start the dev server:
 
