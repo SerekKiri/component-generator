@@ -29,6 +29,21 @@ export const ComponentPreview: FC<{ code: string | null; isLoading?: boolean }> 
               margin: 0; 
               font-family: system-ui, -apple-system, sans-serif;
             }
+            /* Modern, pale scrollbar styles for iframe */
+            ::-webkit-scrollbar {
+              width: 8px;
+              height: 8px;
+            }
+            ::-webkit-scrollbar-thumb {
+              background-color: #F5D2B3;
+              border-radius: 8px;
+            }
+            ::-webkit-scrollbar-track {
+              background: transparent;
+            }
+            html {
+              scrollbar-color: #F5D2B3 transparent;
+            }
           </style>
         </head>
         <body>
