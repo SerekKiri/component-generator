@@ -21,7 +21,7 @@ const NewChat = ({ isSubmitting, error }: NewChatProps) => {
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder="Describe the component you want to generate..."
-                            className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-200 focus:border-primary-200 transition-all bg-white disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 placeholder-gray-400"
+                            className="w-full p-4 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-primary-200 focus:border-primary-200 transition-all bg-white disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 placeholder-gray-400"
                             disabled={isSubmitting}
                             readOnly={isSubmitting}
                         />

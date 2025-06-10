@@ -41,17 +41,43 @@ export const Title = ({ title, onTitleChange }: { title: string, onTitleChange: 
     };
 
     return (
-        <div className="px-4 py-2">
+        <div className="px-4 py-2 max-w-md">
             {isEditing ? (
-                <input
-                    ref={inputRef}
-                    type="text"
-                    value={editedTitle}
-                    onChange={(e) => setEditedTitle(e.target.value)}
-                    onBlur={handleBlur}
-                    onKeyDown={handleKeyDown}
-                    className="w-full px-2 py-1 text-lg font-medium border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-500"
-                />
+                <div className="relative w-full">
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        value={editedTitle}
+                        onChange={(e) => setEditedTitle(e.target.value)}
+                        onBlur={handleBlur}
+                        onKeyDown={handleKeyDown}
+                        className="w-full pr-32 px-2 py-1 text-lg font-medium border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    />
+                    <div className="absolute inset-y-0 right-2 flex items-center gap-1">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setIsEditing(false);
+                                setEditedTitle(title);
+                            }}
+                            className="px-2 py-0.5 text-xs rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setIsEditing(false);
+                                if (editedTitle.trim() !== title) {
+                                    onTitleChange(editedTitle.trim());
+                                }
+                            }}
+                            className="px-2 py-0.5 text-xs rounded bg-primary-500 text-white hover:bg-primary-600 transition-colors"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
             ) : (
                 <h1
                     onDoubleClick={handleDoubleClick}

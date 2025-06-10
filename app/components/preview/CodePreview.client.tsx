@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import jsx from 'react-syntax-highlighter/dist/cjs/languages/hljs/javascript';
 import { vs2015, atomOneDark, github, dracula, monokai } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { LoadingState } from '@components/common/LoadingState';
+
+SyntaxHighlighter.registerLanguage('jsx', jsx);
 
 const themes = [
     { name: 'VS Code Dark', value: vs2015 },
@@ -67,7 +70,7 @@ export const CodePreview = ({ code, isLoading = false }: { code: string | null, 
         <div className="h-full flex flex-col bg-white">
             <div className="px-6 py-4 flex justify-between items-center">
                 <h2 className="text-sm font-medium text-gray-600">Component Preview</h2>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1">
                     <button
                         onClick={handleCopy}
                         className="p-1 hover:bg-primary-300 rounded-md transition-colors relative group"
@@ -84,7 +87,7 @@ export const CodePreview = ({ code, isLoading = false }: { code: string | null, 
                     <div className="relative" ref={themeRef}>
                         <button
                             onClick={() => setIsThemeOpen(!isThemeOpen)}
-                            className="p-1 hover:bg-primary-300 rounded-md transition-colors relative group flex items-center gap-1.5"
+                            className="p-1 px-2 hover:bg-primary-300 rounded-md transition-colors relative group flex items-center gap-1.5"
                             title="Select theme"
                             disabled={isLoading}
                         >
