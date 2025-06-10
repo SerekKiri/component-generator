@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "@remix-run/react";
-import { Avatar } from "./Avatar";
+import { Avatar } from "@components/common/Avatar";
 
 interface Chat {
     id: string;

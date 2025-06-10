@@ -1,45 +1,13 @@
 import { useLoaderData, useNavigate } from "@remix-run/react";
-import { data } from "@remix-run/node";
 import { AppLayout } from "@layouts/AppLayout";
-import { CodePreview } from "@/components/CodePreview.client";
-import { ComponentPreview } from "@components/ComponentPreview.client";
-import { requireUserId } from "@lib/supabase/auth";
-import { fetchUserDetails } from "@lib/supabase/server/user";
-import { fetchChatHistory } from "@lib/supabase/server/chat";
-import { fetchComponentWithTitle } from "@lib/supabase/server/component";
-import { ErrorBoundary } from "@components/ErrorBoundary";
+import { CodePreview } from "@/components/preview/CodePreview.client";
+import { ComponentPreview } from "@/components/preview/ComponentPreview.client";
+import { ErrorBoundary } from "@/components/boundaries/ErrorBoundary";
 import { ClientOnly } from "remix-utils/client-only";
-import { LoadingState } from "@/components/LoadingState";
+import { LoadingState } from "@/components/common/LoadingState";
+import { loader } from "./loader";
 
-export const loader = async ({ request, params }: { request: Request; params: { chatId: string } }) => {
-    const userId = await requireUserId(request);
-    const { chatId } = params;
-
-    // Fetch user details
-    const user = await fetchUserDetails(userId);
-
-    // Fetch component
-    const component = await fetchComponentWithTitle(chatId);
-    if (!component) {
-        throw new Error("Component not found");
-    }
-
-    // Fetch chat history
-    const chatHistory = await fetchChatHistory(userId);
-
-    return data({
-        component: {
-            id: component.id,
-            title: component.chats?.title || "Untitled Component",
-            code: component.code,
-            created_at: component.created_at || "No date"
-        },
-        chatHistory,
-        username: user?.username || "User"
-    });
-};
-
-export { ErrorBoundary };
+export { loader, ErrorBoundary };
 
 export default function ComponentView() {
     const { component, chatHistory, username } = useLoaderData<typeof loader>();
@@ -62,7 +30,7 @@ export default function ComponentView() {
                         {new Date(component.created_at).toLocaleDateString()}
                     </span>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[calc(100vh-12rem)]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 h-[calc(100vh-12rem)]">
                     <div className="h-full">
                         <ClientOnly fallback={<LoadingState fullScreen />}>
                             {() => <CodePreview code={component.code} />}

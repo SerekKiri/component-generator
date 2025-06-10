@@ -22,6 +22,7 @@ const NewChat = ({ isSubmitting, error }: NewChatProps) => {
                         placeholder="Describe the component you want to generate..."
                         className="w-full p-3 border border-primary-200 rounded-lg focus:outline-none focus:border-primary-400 transition-all bg-white disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={isSubmitting}
+                        readOnly={isSubmitting}
                     />
                     {error && (
                         <div className="text-red-500 text-sm">{error}</div>

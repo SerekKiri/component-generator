@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vs2015, atomOneDark, github, dracula, monokai } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
-import { LoadingState } from './LoadingState';
+import { LoadingState } from '@components/common/LoadingState';
 
 const themes = [
     { name: 'VS Code Dark', value: vs2015 },
@@ -15,7 +15,6 @@ const themes = [
 const THEME_STORAGE_KEY = 'code-preview-theme';
 
 export const CodePreview = ({ code, isLoading = false }: { code: string | null, isLoading?: boolean }) => {
-    // const [isWrapped, setIsWrapped] = useState(false);
     const [selectedTheme, setSelectedTheme] = useState(() => {
         if (typeof window !== 'undefined') {
             const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
@@ -28,6 +27,7 @@ export const CodePreview = ({ code, isLoading = false }: { code: string | null, 
     });
 
     const [isThemeOpen, setIsThemeOpen] = useState(false);
+    const [isCopied, setIsCopied] = useState(false);
 
     // Save theme to localStorage whenever it changes
     useEffect(() => {
@@ -42,46 +42,29 @@ export const CodePreview = ({ code, isLoading = false }: { code: string | null, 
     const handleCopy = () => {
         if (code) {
             navigator.clipboard.writeText(code);
+            setIsCopied(true);
+            setTimeout(() => {
+                setIsCopied(false);
+            }, 800);
         }
     };
 
     return (
-        <div className="h-full flex flex-col border-l border-gray-200">
-            <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+        <div className="h-full flex flex-col">
+            <div className="p-4 flex justify-between items-center">
                 <h2 className="text-lg font-semibold text-gray-900">Code Preview</h2>
                 <div className="flex items-center gap-2">
-                    {/* <button
-                        onClick={() => setIsWrapped(!isWrapped)}
-                        className={`p-2 hover:bg-gray-100 rounded-lg relative group ${isWrapped ? 'bg-gray-100' : ''}`}
-                        title="Toggle word wrap"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className={`w-5 h-5 text-gray-600 ${isWrapped ? 'text-blue-600' : ''}`}
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                            />
-                        </svg>
-                        <span className={"absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10"}>
-                            {isWrapped ? 'Disable line wrap' : 'Enable line wrap'}
-                        </span>
-                    </button> */}
                     <button
                         onClick={handleCopy}
                         className="p-2 hover:bg-gray-100 rounded-lg relative group"
                         title="Copy code"
                         disabled={isLoading || !code}
                     >
-                        <ClipboardDocumentIcon className={`h-5 w-5 ${isLoading || !code ? 'text-gray-400' : 'text-gray-600'}`} />
+                        <ClipboardDocumentIcon
+                            className={`h-5 w-5 transition-all duration-75 ease-out hover:scale-110 ${isLoading || !code ? 'text-gray-400' : 'text-gray-600'} ${isCopied ? 'text-green-500' : ''}`}
+                        />
                         <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                            Copy
+                            {isCopied ? 'Copied!' : 'Copy'}
                         </span>
                     </button>
                     <div className="relative">

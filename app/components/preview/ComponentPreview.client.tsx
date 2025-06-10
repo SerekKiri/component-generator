@@ -1,6 +1,6 @@
 import { transformCode } from '@/utils/codeTransform';
 import { FC, useEffect, useRef, useState } from 'react';
-import { LoadingState } from './LoadingState';
+import { LoadingState } from '@components/common/LoadingState';
 
 export const ComponentPreview: FC<{ code: string | null; isLoading?: boolean }> = ({ code, isLoading = false }) => {
   const iframe = useRef<HTMLIFrameElement | null>(null);
@@ -65,7 +65,7 @@ export const ComponentPreview: FC<{ code: string | null; isLoading?: boolean }> 
           <iframe
             title="preview"
             ref={iframe}
-            sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
+            sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-same-origin"
             width="100%"
             height="100%"
             className="min-h-full"
