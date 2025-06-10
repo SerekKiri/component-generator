@@ -41,7 +41,7 @@ export const Chat: React.FC<ChatProps> = ({ messages, onSendMessage, isLoading =
                 {messages.map((message) => (
                     <div
                         key={message.id}
-                        className="p-4 rounded-xl bg-primary-50 text-primary-900 ml-auto max-w-[85%] shadow-sm"
+                        className="p-4 rounded-xl bg-primary-100 text-primary-900 ml-auto max-w-[85%] shadow-sm"
                     >
                         {message.content}
                     </div>
