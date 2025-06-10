@@ -52,7 +52,6 @@ export const ComponentPreview: FC<{ code: string | null; isLoading?: boolean }> 
     return <div className="text-red-500 text-center p-4">{error}</div>
   }
 
-  // display errors in the html
   return (
     <div className="w-full h-full overflow-hidden border-l">
       <h2 className="text-lg p-4 border-b border-gray-300">Component preview</h2>

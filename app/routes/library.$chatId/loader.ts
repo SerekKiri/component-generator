@@ -14,16 +14,14 @@ export const loader = async ({
   const userId = await requireUserId(request)
   const { chatId } = params
 
-  // Fetch user details
   const user = await fetchUserDetails(userId)
 
-  // Fetch component
   const component = await fetchComponentWithTitle(chatId)
+
   if (!component) {
     throw new Error("Component not found")
   }
 
-  // Fetch chat history
   const chatHistory = await fetchChatHistory(userId)
 
   return data({
@@ -31,7 +29,7 @@ export const loader = async ({
       id: component.id,
       title: component.chats?.title || "Untitled Component",
       code: component.code,
-      created_at: component.created_at || "No date",
+      createdAt: component.created_at || "No date",
     },
     chatHistory,
     username: user?.username || "User",

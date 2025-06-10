@@ -14,22 +14,22 @@ const themes = [
 
 const THEME_STORAGE_KEY = 'code-preview-theme';
 
-export const CodePreview = ({ code, isLoading = false }: { code: string | null, isLoading?: boolean }) => {
-    const [selectedTheme, setSelectedTheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-            if (savedTheme) {
-                const theme = themes.find(t => t.name === savedTheme);
-                if (theme) return theme.value;
-            }
+const getInitialTheme = () => {
+    if (typeof window !== 'undefined') {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        if (savedTheme) {
+            const theme = themes.find(t => t.name === savedTheme);
+            if (theme) return theme.value;
         }
-        return vs2015;
-    });
+    }
+    return vs2015;
+};
 
+export const CodePreview = ({ code, isLoading = false }: { code: string | null, isLoading?: boolean }) => {
+    const [selectedTheme, setSelectedTheme] = useState(getInitialTheme);
     const [isThemeOpen, setIsThemeOpen] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
 
-    // Save theme to localStorage whenever it changes
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const themeName = themes.find(t => t.value === selectedTheme)?.name;

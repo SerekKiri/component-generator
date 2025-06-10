@@ -7,6 +7,10 @@ export const Title = ({ title, onTitleChange }: { title: string, onTitleChange: 
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        setEditedTitle(title);
+    }, [title]);
+
+    useEffect(() => {
         if (isEditing && inputRef.current) {
             inputRef.current.focus();
             inputRef.current.select();

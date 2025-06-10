@@ -30,13 +30,17 @@ export async function fetchComponentWithTitle(chatId: string) {
     .single()
 
   if (componentError) {
-    console.error("Failed to fetch component:", componentError)
+    if (componentError.code === "PGRST116") {
+      // This is the specific error code for "not found" when using .single()
+      throw new Error(`Component not found for chatId: ${chatId}`)
+    }
+
     throw new Error(`Failed to fetch component: ${componentError.message}`)
   }
 
   // due to the structure of the database supabase
   // generates a type that is incorrect
-  // for now this is a workaround
+  // due to time constraints this is a workaround
   return component as unknown as Component
 }
 
@@ -73,7 +77,7 @@ export async function fetchUserComponentsWithTitle(
 
   // due to the structure of the database supabase
   // generates a type that is incorrect
-  // for now this is a workaround
+  // due to time constraints this is a workaround
   return components as unknown as Component[]
 }
 
@@ -98,4 +102,33 @@ export async function upsertComponent(chatId: string, code: string) {
   }
 
   return upsertedComponent
+}
+
+export async function fetchAllComponentsWithTitle(): Promise<Component[]> {
+  const { data: components, error: componentsError } = await supabase
+    .from("components")
+    .select(
+      `
+      id,
+      code,
+      chat_id,
+      created_at,
+      chats!inner (
+        title,
+        user_id
+      )
+    `
+    )
+    .order("created_at", { ascending: false })
+
+  if (componentsError) {
+    console.error("Failed to fetch components:", componentsError)
+    throw new Error(`Failed to fetch components: ${componentsError.message}`)
+  }
+
+  if (!components) {
+    return []
+  }
+
+  return components as unknown as Component[]
 }

@@ -7,4 +7,4 @@ export const ComponentCard = ({ title, id, createdAt }: { title: string, id: str
             <p className="text-sm text-gray-500">Created: {new Date(createdAt).toLocaleDateString()}</p>
         </Link>
     );
-}; 
+};

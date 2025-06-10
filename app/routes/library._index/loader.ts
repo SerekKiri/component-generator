@@ -1,7 +1,7 @@
 import { data } from "@remix-run/node"
 import { requireUserId } from "@lib/supabase/auth"
 import { supabase } from "@lib/supabase/server"
-import { fetchUserComponentsWithTitle } from "@lib/supabase/server/component"
+import { fetchAllComponentsWithTitle } from "@lib/supabase/server/component"
 import type { LoaderData, MappedComponent } from "./types"
 
 export async function loader({ request }: { request: Request }) {
@@ -14,8 +14,8 @@ export async function loader({ request }: { request: Request }) {
     .eq("id", userId)
     .single()
 
-  // Fetch components for the current user
-  const components = await fetchUserComponentsWithTitle(userId)
+  // Fetch all components
+  const components = await fetchAllComponentsWithTitle()
 
   // Fetch chat history
   const { data: chats, error: chatsError } = await supabase

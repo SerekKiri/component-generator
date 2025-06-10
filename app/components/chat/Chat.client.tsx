@@ -18,12 +18,10 @@ export const Chat: React.FC<ChatProps> = ({ messages, onSendMessage, isLoading =
         messagesEndRef.current?.scrollIntoView({ behavior: "instant" });
     };
 
-    // Scroll to bottom when messages change or component loads
     useEffect(() => {
         scrollToBottom();
     }, [messages, isLoading]);
 
-    // Clear input when action succeeds
     useEffect(() => {
         if (!isLoading) {
             setMessage("");

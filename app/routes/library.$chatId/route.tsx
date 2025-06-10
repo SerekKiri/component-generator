@@ -5,6 +5,7 @@ import { ComponentPreview } from "@/components/preview/ComponentPreview.client";
 import { ErrorBoundary } from "@/components/boundaries/ErrorBoundary";
 import { ClientOnly } from "remix-utils/client-only";
 import { LoadingState } from "@/components/common/LoadingState";
+import { DateDisplay } from "@/components/common/Date.client";
 import { loader } from "./loader";
 
 export { loader, ErrorBoundary };
@@ -27,7 +28,9 @@ export default function ComponentView() {
                         <h2 className="text-2xl text-primary-900 font-bold">{component.title}</h2>
                     </div>
                     <span className="text-sm text-gray-500">
-                        {new Date(component.created_at).toLocaleDateString()}
+                        <ClientOnly fallback={null}>
+                            {() => <DateDisplay date={component.createdAt} />}
+                        </ClientOnly>
                     </span>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 h-[calc(100vh-12rem)]">

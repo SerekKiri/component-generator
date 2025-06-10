@@ -10,6 +10,17 @@ export const CLAUDE_SYSTEM_PROMPT = `I want you to act like a code generator and
 
 `
 
+export const CLAUDE_SYSTEM_PROMPT_IMPROVE_COMPONENT = (
+  code: string,
+  message: string
+) => `I want you to improve the following component: ${code}. Please return the improved code as per request: ${message}. It is very important that you do not import or export anything, otherwise the code will not work. For hooks, please use React.[hook name], since React is a global in our desired context. Remember, I am specifically interested in the actual code implementation (a React function component), no description (this also applies for any improving of the component). For styling you can use TailwindCSS as you can assume that the styles are present.
+
+\`\`\`jsx
+
+\`\`\`
+
+`
+
 export async function callClaudeAPI(
   messages: ClaudeMessage[]
 ): Promise<ClaudeResponse> {
