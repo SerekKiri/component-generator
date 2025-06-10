@@ -16,31 +16,43 @@ export const Sidebar: React.FC<SidebarProps> = ({ username, chatHistory }) => {
     const selectedRoute = useLocation().pathname;
 
     return (
-        <div className="w-64 h-screen bg-white border-r border-primary-100 flex flex-col">
-            <div className="p-4 border-b border-primary-100">
+        <div className="w-64 h-screen bg-white border-r border-gray-100 flex flex-col">
+            <div className="p-4">
                 <Avatar username={username} />
             </div>
-            <nav className="py-4 px-2">
-                <ul className="space-y-2">
+            <nav className="px-3">
+                <ul className="space-y-1">
                     <li>
-                        <Link to="/app" className={`block px-4 py-2 text-sm rounded-lg ${selectedRoute === "/app" ? "bg-primary-500 text-white" : "bg-gray-50 hover:bg-primary-500 hover:text-white transition"}`}>
+                        <Link
+                            to="/app"
+                            className={`block px-3 py-2 text-sm rounded-md transition-colors ${selectedRoute === "/app"
+                                ? "text-primary-800 bg-primary-200"
+                                : "text-gray-600 hover:text-primary-800 hover:bg-primary-200"
+                                }`}
+                        >
                             App
                         </Link>
                     </li>
                     <li>
-                        <Link to="/library" className={`block px-4 py-2 text-sm rounded-lg ${selectedRoute.includes("/library") ? "bg-primary-500 text-white" : "bg-gray-50 hover:bg-primary-500 hover:text-white transition"}`}>
+                        <Link
+                            to="/library"
+                            className={`block px-3 py-2 text-sm rounded-md transition-colors ${selectedRoute.includes("/library")
+                                ? "text-primary-800 bg-primary-200"
+                                : "text-gray-600 hover:text-primary-800 hover:bg-primary-200"
+                                }`}
+                        >
                             Library
                         </Link>
                     </li>
                 </ul>
             </nav>
             {chatHistory && chatHistory.length > 0 && (
-                <div className="flex-1 py-4 px-2 border-t border-primary-100">
-                    <div className="flex justify-between items-center mb-2 px-1">
-                        <h3 className="font-semibold">Chat History</h3>
+                <div className="flex-1 mt-4 px-3 pt-4 border-t border-gray-100">
+                    <div className="flex justify-between items-center mb-3">
+                        <h3 className="text-sm font-medium text-gray-500">Chat History</h3>
                         <Link
                             to="/app"
-                            className="w-6 h-6 flex items-center justify-center rounded-lg bg-primary-500 text-white hover:bg-primary-600 transition"
+                            className="p-1.5 rounded-md text-gray-400 hover:text-primary-800 hover:bg-primary-200 transition-colors"
                             aria-label="New Component"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -54,7 +66,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ username, chatHistory }) => {
 
                             return (
                                 <li key={chat.id}>
-                                    <Link to={`/app/${chat.id}`} className={`block px-4 py-2 rounded-lg ${isSelected ? "bg-primary-500 text-white" : "bg-gray-50 hover:bg-primary-500 hover:text-white transition"} truncate `}>
+                                    <Link
+                                        to={`/app/${chat.id}`}
+                                        className={`block px-3 py-2 text-sm rounded-md transition-colors truncate ${isSelected
+                                            ? "text-primary-800 bg-primary-200"
+                                            : "text-gray-600 hover:text-primary-800 hover:bg-primary-200"
+                                            }`}
+                                    >
                                         {chat.title}
                                     </Link>
                                 </li>

@@ -41,7 +41,7 @@ export const Title = ({ title, onTitleChange }: { title: string, onTitleChange: 
     };
 
     return (
-        <div className="px-4 py-2 border-b border-gray-200">
+        <div className="px-4 py-2">
             {isEditing ? (
                 <input
                     ref={inputRef}

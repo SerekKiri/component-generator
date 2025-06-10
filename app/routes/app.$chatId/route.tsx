@@ -70,12 +70,14 @@ export default function ChatRoute() {
 
     return (
         <AppLayout username={username} chatHistory={chatHistory}>
-            <div className="flex flex-col h-full overflow-hidden">
-                <ClientOnly fallback={<LoadingState fullScreen />}>
-                    {() => <Title title={chat.title} onTitleChange={handleTitleChange} />}
-                </ClientOnly>
+            <div className="flex flex-col h-full bg-white">
+                <div className="py-4 border-b border-gray-100">
+                    <ClientOnly fallback={<LoadingState />}>
+                        {() => <Title title={chat.title} onTitleChange={handleTitleChange} />}
+                    </ClientOnly>
+                </div>
                 <div className="flex flex-1 overflow-hidden">
-                    <div className="w-full md:min-w-[200px] md:max-w-[450px] 2xl:min-w-[400px] 2xl:max-w-[650px] flex-shrink border-r border-primary-100 overflow-hidden">
+                    <div className="w-full md:min-w-[300px] md:max-w-[500px] 2xl:min-w-[400px] 2xl:max-w-[600px] flex-shrink border-r border-gray-100 overflow-hidden">
                         <ClientOnly fallback={<LoadingState fullScreen />}>
                             {() => <Chat
                                 messages={messages}
@@ -85,14 +87,14 @@ export default function ChatRoute() {
                             />}
                         </ClientOnly>
                     </div>
-                    <div className="hidden md:flex flex-1 flex-col overflow-hidden">
-                        <div className="h-1/2 border-b border-gray-200 overflow-hidden border-l border-gray-200">
-                            <ClientOnly fallback={<LoadingState className="border-l border-gray-200" fullScreen />}>
+                    <div className="hidden md:flex flex-1 flex-col overflow-hidden bg-white">
+                        <div className="h-1/2 overflow-hidden pl-2">
+                            <ClientOnly fallback={<LoadingState fullScreen />}>
                                 {() => <CodePreview code={component?.code || ''} />}
                             </ClientOnly>
                         </div>
                         <div className="h-1/2 overflow-hidden">
-                            <ClientOnly fallback={<LoadingState className="border-l border-gray-200" fullScreen />}>
+                            <ClientOnly fallback={<LoadingState fullScreen />}>
                                 {() => <ComponentPreview code={component?.code || ''} />}
                             </ClientOnly>
                         </div>

@@ -16,7 +16,7 @@ export default function ComponentView() {
 
     return (
         <AppLayout username={username} chatHistory={chatHistory}>
-            <div className="p-4">
+            <div className="p-4 bg-white h-full">
                 <div className="flex gap-6 justify-between items-center mb-4">
                     <div className="flex items-center gap-4">
                         <button

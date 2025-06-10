@@ -46,3 +46,25 @@
         @apply border border-primary-200 rounded px-4 py-2 focus:outline-none focus:border-primary-400 transition-all bg-white;
     }
 }
+
+/* Global modern, pale scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #F5D2B3;
+    /* primary-100 */
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #F5D2B3 transparent;
+    /* primary-100 */
+}
